@@ -1,0 +1,25 @@
+CUDA ImageDenoising Starting...
+
+[CUDA ImageDenoising]
+Allocating host and CUDA memory and loading image file...
+Loading ../data/portrait_noise.bmp...
+BMP width: 320
+BMP height: 408
+BMP file loaded successfully!
+Data init done.
+Initializing GLUT...
+OpenGL window created.
+Loading extensions: No error
+Creating GL texture...
+Texture created.
+Creating PBO...
+PBO created.
+Starting GLUT main loop...
+Press [1] to view noisy image
+Press [2] to view image restored with knn filter
+Press [3] to view image restored with nlm filter
+Press [4] to view image restored with modified nlm filter
+Press [*] to view smooth/edgy areas [RED/BLUE] Ct's when a filter is active
+Press [f] to print frame rate
+Press [?] to print Noise and Lerp Ct's
+Press [q] to exit
