@@ -3,8 +3,8 @@
 
 typedef unsigned int TColor;
 
-#define BLOCKDIM_X 8
-#define BLOCKDIM_Y 8
+#define BLOCKDIM_X 20
+#define BLOCKDIM_Y 20
 
 
 #define DELTA 0.016

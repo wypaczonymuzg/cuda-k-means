@@ -105,7 +105,7 @@ __global__ void calculate_clusters(float* array_v, float* array_c,
 		}
 	}
 	__syncthreads();
-	printf("id = %d \t number = %d\n",id,number);
+	//printf("id = %d \t number = %d\n",id,number);
 	if (number*1.0f != 0.0f) {
 		xd = xd / number;
 		yd = yd / number;

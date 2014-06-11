@@ -111,20 +111,21 @@ void runSimulation(float threshold) {
 					cudaMemcpy(hn_array_c, d_array_c, sh_size_c,
 							cudaMemcpyDeviceToHost));
 			int counter = 0;
-			for (int i = 0; i < num_of_clusters; i++) {
+			for (int i = 0; i < num_of_vectors; i++) {
 				int idx = i * 4;
-				if (hn_array_c[idx + 3] != h_array_c[idx + 3])
+				if (hn_array_v[idx + 3] != h_array_v[idx + 3]) {
 					counter++;
-				printf("i = %d \thn_array_c[idx+3] = %f\n", i,
-						hn_array_c[idx + 3]);
+					//printf("i = %d \thn_array_v[idx+3] = %f\th_array_v[idx+3] = %f\n", i,
+//					/		hn_array_v[idx + 3],h_array_v[idx+3]);
+				}
 			}
 			checkCudaErrors(
-					cudaMemcpy(h_array_c, d_array_c, sh_size_c,
+					cudaMemcpy(h_array_v, d_array_v, num_of_vectors * 4 * sizeof(float),
 							cudaMemcpyDeviceToHost));
-			changesFac = (float) (counter * 1.0f / num_of_clusters * 1.0f);
+			changesFac = (float) (counter * 1.0f / num_of_vectors * 1.0f);
 			printf(
-					"counter = %d\t numof clusters  = %d\tchanges factor  = %f\n",
-					counter, num_of_clusters, changesFac);
+					"counter = %d\t numof vectors  = %d\tchanges factor  = %f\n",
+					counter, num_of_vectors, changesFac);
 		}
 		/*
 		 printf("___________________________________after kernel usage\n");
@@ -171,7 +172,7 @@ int main(int argc, char **argv) {
 	case 1:
 		threshold = 0.0f;
 		num_of_vectors = 3000;
-		num_of_clusters = 1024;
+		num_of_clusters = 128;
 
 		sh_size_v = sizeof(float) * num_of_vectors * 4;
 		h_array_v = (float*) malloc(sh_size_v);
@@ -197,7 +198,7 @@ int main(int argc, char **argv) {
 				sh_size_c);
 
 		for (int i = 0; i < num_of_clusters * 4; i += 4) {
-			if (i < num_of_vectors) {
+			if (i/4 < num_of_vectors) {
 				h_array_c[i] = h_array_v[i] + 1; 		//x
 				h_array_c[i + 1] = h_array_v[i + 1]; 	//y
 				h_array_c[i + 2] = h_array_v[i + 2];	//z
